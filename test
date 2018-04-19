@@ -1,0 +1,28 @@
+git config --global merge.ours.driver true
+mkdir tmp
+cd tmp
+git init
+git commit --allow-empty -m "chore: Initial commit"
+
+echo email.json merge=ours >> .gitattributes
+git add .gitattributes
+git commit -m "chore: Preserve email.json during merges"
+
+echo "Oh yeah" > demo-shared
+git add demo-shared
+git commit -m "chore(demo): a file that will merge normally"
+
+git checkout -b demo-prod
+echo "{"server":"smtp.mandrillapp.com","port":587}" > email.json
+git add email.json
+git commit -m "chore(email): production email.json"
+echo -e "You know what?\nOh yeah" > demo-shared
+git commit -am "fix(demo): Header for the normal-merge file"
+
+git checkout -
+echo "{"server":"localhost","port":1025}" > email.json
+git add email.json
+git commit -m "chore(email): dev/staging email.json"
+
+echo -e "You betcha" >> demo-shared
+git commit -am "fix(demo): Footer for the normal-merge file"
