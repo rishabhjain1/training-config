@@ -26,3 +26,5 @@ git commit -m "chore(email): dev/staging email.json"
 
 echo -e "You betcha" >> demo-shared
 git commit -am "fix(demo): Footer for the normal-merge file"
+
+ awk -F' '  '!a[$1]++' first.properties second.properties
